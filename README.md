@@ -8,6 +8,7 @@
 | 種別 | 場所 |
 |---|---|
 | 最終動画（1920×1080 / 30fps / H.264 + AAC / 6:00） | `output_final/orientation_spy_mission_1080p.mp4` |
+| 音声なし版（映像・字幕のみ／BGM・効果音・ナレーションなし） | `output_final/orientation_spy_mission_1080p_silent.mp4` |
 | 字幕（SRT・外部字幕として利用可） | `docs/captions.srt` |
 | 絵コンテ（16シーン） | `docs/storyboard.csv` |
 | ナレーション台本・音声長 | `docs/narration.csv` |
@@ -45,6 +46,7 @@ npm run docs          # storyboard / narration / facilitator CSV と captions.sr
 npm run dev           # Remotion Studio でプレビュー
 npm run stills        # 代表フレームを書き出し
 npm run render        # 最終MP4を output_final/ に書き出し
+npm run render:silent # 音声なし版MP4を output_final/ に書き出し
 ```
 
 - **ナレーションをプロのナレーター音声等に差し替える**：`public/assets/audio/scXX.wav` を置き換え → `node scripts/generate-narration.mjs --manifest-only` → `npm run docs`（字幕タイミングは文字数比で再計算）

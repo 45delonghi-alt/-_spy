@@ -34,7 +34,8 @@
     "docs": "node scripts/export-docs.mjs",
     "stills": "node scripts/render-stills.mjs ../../docs/frames",
     "render:draft": "remotion render Orientation out/draft_540p.mp4 --scale=0.5 --crf=28",
-    "render": "remotion render Orientation ../../output_final/orientation_spy_mission_1080p.mp4 --crf=20 --audio-codec=aac --audio-bitrate=192k"
+    "render": "remotion render Orientation ../../output_final/orientation_spy_mission_1080p.mp4 --crf=20 --audio-codec=aac --audio-bitrate=192k",
+    "render:silent": "remotion render Orientation ../../output_final/orientation_spy_mission_1080p_silent.mp4 --crf=20 --muted"
   },
   "allowScripts": {
     "esbuild": false
