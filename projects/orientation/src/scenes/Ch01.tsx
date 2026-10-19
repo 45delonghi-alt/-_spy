@@ -49,14 +49,14 @@ export const Scene01: React.FC<{ scene: Scene }> = ({ scene }) => {
         <div style={{ marginTop: 60, fontSize: 40, fontWeight: 700, letterSpacing: 4, ...rise(frame, 7.2) }}>オプテックス・エフエー株式会社</div>
         <div style={{ marginTop: 40, display: "inline-flex", alignItems: "center", gap: 14, border: `2px solid ${C.ok}`, padding: "8px 26px", borderRadius: 30, ...rise(frame, 8.2) }}>
           <IconCheck size={30} color={C.ok} stroke={6} />
-          <span style={{ fontFamily: MONO, fontSize: 26, letterSpacing: 4, color: C.ok }}>AGENT 登録完了 ： YOU</span>
+          <span style={{ fontFamily: MONO, fontSize: 26, letterSpacing: 4, color: C.ok }}>参加登録完了 ： YOU</span>
         </div>
       </div>
     </SceneFrame>
   );
 };
 
-// SC02 本人確認＝現在地チェック → AGENT DECISION Q01
+// SC02 現状確認＝現在地チェック → AGENT DECISION Q01
 export const Scene02: React.FC<{ scene: Scene }> = ({ scene }) => {
   const frame = useCurrentFrame();
   const a = sentenceAt(scene, 1);
@@ -64,7 +64,7 @@ export const Scene02: React.FC<{ scene: Scene }> = ({ scene }) => {
   const icons = [IconBuilding, IconFactory, IconShop];
   const scanIdx = Math.floor(Math.max(0, frame / FPS - b) / 0.9) % 3;
   return (
-    <SceneFrame scene={scene} label="IDENTITY CHECK / 本人確認">
+    <SceneFrame scene={scene} label="STATUS CHECK / 現状確認">
       {/* 左：何社目？ */}
       <Panel x={92} y={270} w={830} h={520} at={a - 0.6} tag="CHECK 01" title="今日の仕事体験は、何社目？">
         <div style={{ position: "absolute", left: 60, right: 60, top: 300, height: 4, background: C.line }} />
