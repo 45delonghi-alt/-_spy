@@ -130,13 +130,15 @@ export const Scene08: React.FC<{ scene: Scene }> = ({ scene }) => {
 // SC09 FILE 03：AIと人間の役割分担を比較分析（「置き換え不可能」とは断定しない）
 export const Scene09: React.FC<{ scene: Scene }> = ({ scene }) => {
   const frame = useCurrentFrame();
+  const s1 = sentenceAt(scene, 1);
   const s2 = sentenceAt(scene, 2);
   const s3 = sentenceAt(scene, 3);
   const ai = ["情報の整理", "提案資料の準備", "データ処理・定型業務"];
   const human = ["お客様の本音を引き出す", "信頼関係を築く", "関係者の合意を得る"];
-  const Col: React.FC<{ x: number; at: number; head: string; tag: string; items: string[]; Icon: React.FC<{ size?: number; color?: string }>; dark?: boolean }> = ({
+  const Col: React.FC<{ x: number; at: number; itemsAt: number; head: string; tag: string; items: string[]; Icon: React.FC<{ size?: number; color?: string }>; dark?: boolean }> = ({
     x,
     at,
+    itemsAt,
     head,
     tag,
     items,
@@ -153,7 +155,7 @@ export const Scene09: React.FC<{ scene: Scene }> = ({ scene }) => {
       </div>
       <div style={{ height: 2, background: dark ? "#2F4A6A" : C.line, margin: "22px 0 10px" }} />
       {items.map((it, i) => (
-        <div key={it} style={{ display: "flex", alignItems: "center", gap: 18, marginTop: 24, ...rise(frame, at + 0.6 + i * 0.7, 16) }}>
+        <div key={it} style={{ display: "flex", alignItems: "center", gap: 18, marginTop: 24, ...rise(frame, itemsAt + i * 0.7, 16) }}>
           <div style={{ width: 16, height: 16, background: C.red, transform: "rotate(45deg)" }} />
           <div style={{ fontSize: 40, fontWeight: 700 }}>{it}</div>
         </div>
@@ -163,8 +165,8 @@ export const Scene09: React.FC<{ scene: Scene }> = ({ scene }) => {
   const link = prog(frame, s3 + 4, 0.5);
   return (
     <SceneFrame scene={scene} label="FILE 03 / 役割分担の比較分析">
-      <Col x={92} at={s2} head="AI・テクノロジー" tag="SUPPORT" items={ai} Icon={IconAI} />
-      <Col x={1088} at={s3} head="センサ営業（人）" tag="HUMAN STRENGTH" items={human} Icon={IconPerson} dark />
+      <Col x={92} at={s1 + 0.4} itemsAt={s2 + 0.4} head="AI・テクノロジー" tag="SUPPORT" items={ai} Icon={IconAI} />
+      <Col x={1088} at={s1 + 1.4} itemsAt={s3 + 0.4} head="センサ営業（人）" tag="HUMAN STRENGTH" items={human} Icon={IconPerson} dark />
       <div style={{ position: "absolute", left: 960 - 80, top: 470, width: 160, height: 160, borderRadius: 80, background: "#fff", border: `4px solid ${C.red}`, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", transform: `scale(${pop(frame, s3 + 3.5)})`, zIndex: 5 }}>
         <div style={{ fontSize: 36, color: C.red, lineHeight: 1 }}>⇄</div>
         <div style={{ fontSize: 34, fontWeight: 900, color: C.red }}>協働</div>
