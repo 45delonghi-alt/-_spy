@@ -52,7 +52,7 @@ export const MissionIntro: React.FC<{ chapter: number }> = ({ chapter }) => {
             MISSION {String(chapter).padStart(2, "0")} / 06
           </span>
         </div>
-        <div style={{ fontSize: 92, fontWeight: 900, marginTop: 30, letterSpacing: 4 }}>{c.missionTitle}</div>
+        <div style={{ fontSize: Math.min(92, Math.floor(1000 / c.missionTitle.length) - 4), fontWeight: 900, marginTop: 30, letterSpacing: 4, whiteSpace: "nowrap" }}>{c.missionTitle}</div>
         <div style={{ fontSize: 34, color: "#B9C8D8", marginTop: 14 }}>{c.informationTheme}</div>
 
         <div style={{ position: "absolute", left: 72, right: 72, bottom: 56 }}>
