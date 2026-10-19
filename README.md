@@ -9,6 +9,7 @@
 |---|---|
 | 最終動画（1920×1080 / 30fps / H.264 + AAC / 6:00） | `output_final/orientation_spy_mission_1080p.mp4` |
 | 音声なし版（映像・字幕のみ／BGM・効果音・ナレーションなし） | `output_final/orientation_spy_mission_1080p_silent.mp4` |
+| 台本（Word・読み上げ用） | `docs/script.docx` |
 | 字幕（SRT・外部字幕として利用可） | `docs/captions.srt` |
 | 絵コンテ（16シーン） | `docs/storyboard.csv` |
 | ナレーション台本・音声長 | `docs/narration.csv` |
@@ -42,6 +43,7 @@ cd projects/orientation
 npm install
 npm run narration     # timeline.json からナレーション音声を生成（要 open_jtalk）→ narrationManifest.json 更新
 npm run sfx           # 効果音・仮BGMを生成（要 ffmpeg）
+python3 scripts/export-script-docx.py ../../docs/script.docx  # 台本（Word）を再生成
 npm run docs          # storyboard / narration / facilitator CSV と captions.srt を再生成
 npm run dev           # Remotion Studio でプレビュー
 npm run stills        # 代表フレームを書き出し

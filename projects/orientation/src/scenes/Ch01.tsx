@@ -1,11 +1,11 @@
 import React from "react";
 import { useCurrentFrame } from "remotion";
-import { FPS, META, Scene, sentenceAt } from "../data/chapters";
+import { FPS, Scene, sentenceAt } from "../data/chapters";
 import { C, FONT, MONO } from "../theme";
 import { blink, linear, pop, prog, rise } from "../anim";
 import { SceneFrame } from "../components/SceneFrame";
 import { Scanlines } from "../components/MissionIntro";
-import { HudTag, Note, Stamp } from "../components/Kit";
+import { HudTag, Stamp } from "../components/Kit";
 import { IconBuilding, IconCheck, IconFactory, IconShop } from "../components/Icons";
 
 // SC01 指令受信 → MISSION BRIEFING → タイトル（センサ検知ラインがタイトルを描く）
@@ -52,9 +52,6 @@ export const Scene01: React.FC<{ scene: Scene }> = ({ scene }) => {
           <span style={{ fontFamily: MONO, fontSize: 26, letterSpacing: 4, color: C.ok }}>AGENT 登録完了 ： YOU</span>
         </div>
       </div>
-      <Note dark x={92} y={820}>
-        {META.disclaimer}
-      </Note>
     </SceneFrame>
   );
 };
@@ -172,7 +169,6 @@ export const Scene03: React.FC<{ scene: Scene }> = ({ scene }) => {
           </div>
         ))}
       </div>
-      <Note x={1110} y={842}>※円の中の言葉は、よくあるイメージの例（演出上の追加）</Note>
     </SceneFrame>
   );
 };

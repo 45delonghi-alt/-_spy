@@ -4,7 +4,7 @@ import { FPS, Scene, sentenceAt } from "../data/chapters";
 import { C, FONT, MONO } from "../theme";
 import { linear, pop, prog, rise } from "../anim";
 import { SceneFrame } from "../components/SceneFrame";
-import { HudTag, Note, Thread } from "../components/Kit";
+import { HudTag, Thread } from "../components/Kit";
 import { IconAutoDoor, IconBottle, IconCar, IconCircuit, IconElevator, IconFactory, IconGear, IconParking, IconSensor, IconTarget } from "../components/Icons";
 
 // SC04 生活の中に潜むセンサの痕跡をスキャン（検知の図解①）
@@ -133,7 +133,6 @@ export const Scene05: React.FC<{ scene: Scene }> = ({ scene }) => {
           <b>Q.</b> 工場見学やTV番組で「製造工程」を見たことはありますか？
         </div>
       </div>
-      <Note>※工場・ラインは模式図です</Note>
     </SceneFrame>
   );
 };

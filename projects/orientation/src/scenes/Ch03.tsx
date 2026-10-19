@@ -4,7 +4,7 @@ import { FPS, Scene, sentenceAt } from "../data/chapters";
 import { C, FONT, MONO } from "../theme";
 import { pop, prog, rise } from "../anim";
 import { SceneFrame } from "../components/SceneFrame";
-import { EvidenceCard, FileUnlock, HudTag, Note, Stamp, Thread } from "../components/Kit";
+import { EvidenceCard, FileUnlock, HudTag, Stamp, Thread } from "../components/Kit";
 import { IconAI, IconBottle, IconCar, IconChat, IconChip, IconCircuit, IconHandshake, IconMemo, IconPerson, IconSearch, IconSensor } from "../components/Icons";
 import { ConveyorLine } from "./Ch02";
 
@@ -60,9 +60,6 @@ export const Scene07: React.FC<{ scene: Scene }> = ({ scene }) => {
         </div>
       </div>
       <Stamp at={s5} text="非常に社会貢献度の高い仕事" x={960} y={820} size={40} rotate={-3} />
-      <Note y={826} x={1340}>
-        ※検出内容は一般的なイメージ例
-      </Note>
     </SceneFrame>
   );
 };

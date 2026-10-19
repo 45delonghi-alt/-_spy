@@ -7,7 +7,7 @@
 | 1 | 仕事体験の正式名称・採用年度・当日の進行時間 | 「1日仕事体験」のみ表記 | `src/scenes/Ch01.tsx`（SC01）, `Ch04to06.tsx`（SC16） |
 | 2 | 正式コーポレートロゴ／FASTUSロゴの要否／ブランド規程 | ロゴ不使用、会社名テキストのみ。配色は暫定（#142A43 / #DC0924） | `src/theme.ts`、SC01・SC16 |
 | 3 | P4のシェア値（日本50%・世界30%）の市場定義・対象企業・基準年・公開可否 | **不使用** | 根拠確認後に SC04 へ追加可 |
-| 4 | P10ベン図3要素の正式文言 | 技術を理解する力／課題を考える力／信頼関係を築く力（画面に「仮説モデル」と注記） | `Ch04to06.tsx`（SC11/12）, `timeline.json` SC11 |
+| 4 | P10ベン図3要素の正式文言 | 技術を理解する力／課題を考える力／信頼関係を築く力（画面の※注記は削除済み） | `Ch04to06.tsx`（SC11/12）, `timeline.json` SC11 |
 | 5 | P11「センサ営業 ≠ / ＝」の公式メッセージ | ≠ 商品を一方的に売り込むこと／＝ お客様が本当に困っていることを知り、共に解決する仕事 | `Ch04to06.tsx`（SC13）, `timeline.json` SC13/16 |
 | 6 | ナレーター・音声サービス・話速・声色 | Open JTalk + HTS Voice "Mei"（CC BY 3.0）で仮生成。音読さんAPIは認証エラー（Token does not match）で使用できず | `public/assets/audio/scXX.wav` を差し替え → `npm run narration -- --manifest-only` |
 | 7 | BGM・効果音・現場素材の利用許諾 | ffmpegで信号合成した自作音源（権利フリー）。写真素材なし（自作SVG線画） | `public/assets/bgm/bgm.wav`, `public/assets/sfx/` |

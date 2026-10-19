@@ -4,7 +4,7 @@ import { FPS, Scene, sentenceAt } from "../data/chapters";
 import { C, FONT, MONO } from "../theme";
 import { linear, pop, prog, rise } from "../anim";
 import { SceneFrame } from "../components/SceneFrame";
-import { HudTag, Note, Stamp } from "../components/Kit";
+import { HudTag, Stamp } from "../components/Kit";
 import { MissionComplete } from "../components/MissionComplete";
 import { Scanlines } from "../components/MissionIntro";
 import { IconBulb, IconChat, IconEar, IconGear, IconHandshake, IconLock, IconMemo, IconPerson, IconSearch } from "../components/Icons";
@@ -61,7 +61,6 @@ export const Scene11: React.FC<{ scene: Scene }> = ({ scene }) => {
         </div>
         <div style={{ fontSize: 28, color: "#4A6079", marginTop: 16 }}>一つだけでなく、重なりに価値がある</div>
       </div>
-      <Note x={1250} y={780}>{"※3つの力のラベルは制作上の仮説モデル\n（正式文言は確認中）"}</Note>
     </SceneFrame>
   );
 };
@@ -145,7 +144,6 @@ export const Scene13: React.FC<{ scene: Scene }> = ({ scene }) => {
         </div>
       </div>
       <Stamp at={s2 + 1.7} text="DECLASSIFIED" x={1640} y={432} size={34} color={C.ok} />
-      <Note>※原稿P11の空欄を補完した制作案</Note>
     </SceneFrame>
   );
 };
@@ -203,7 +201,6 @@ export const Scene15: React.FC<{ scene: Scene }> = ({ scene }) => {
           {i < 2 && <div style={{ position: "absolute", left: 160 + i * 560 + 490, top: 630, fontSize: 56, color: C.red, opacity: prog(frame, s2 + i * 0.8 + 0.4) }}>▶</div>}
         </React.Fragment>
       ))}
-      <Note>※原稿P12の文言を引用</Note>
     </SceneFrame>
   );
 };
