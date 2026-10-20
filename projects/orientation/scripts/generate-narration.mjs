@@ -1,4 +1,7 @@
-// ナレーション音声を timeline.json から生成する（Open JTalk + HTS Voice "Mei"）。
+// ナレーション音声を timeline.json から生成する。
+//   既定：Open JTalk + HTS Voice "Mei"（オフライン）
+//   --engine ondoku：音読さんAPI（トークンは環境変数 ONDOKU_TOKEN、未設定ならプロキシ注入に任せる）
+//     声は ONDOKU_VOICE（既定 ja-JP-Wavenet-C）で変更できる
 // 文単位で合成 → 無音を挟んで連結し、字幕用の文ごとの開始/終了秒を manifest に書き出す。
 // 外部音声（ナレーター収録・他TTS）に差し替える場合は public/assets/audio/scXX.wav を置き換え、
 // `node scripts/generate-narration.mjs --manifest-only` で manifest のみ再計算する。
@@ -14,6 +17,10 @@ const tmpDir = join(root, ".narration-tmp");
 const voice = process.env.VOICE ?? join(root, "tools/voice/mei_normal.htsvoice");
 const dict = process.env.JTALK_DIC ?? "/var/lib/mecab/dic/open-jtalk/naist-jdic";
 const manifestOnly = process.argv.includes("--manifest-only");
+const engineArg = process.argv.indexOf("--engine");
+const engine = engineArg > 0 ? process.argv[engineArg + 1] : "openjtalk";
+const ONDOKU_URL = "https://ondoku3.com/ja/text_to_speech_api/";
+const ondokuVoice = process.env.ONDOKU_VOICE ?? "ja-JP-Wavenet-C";
 const GAP = 0.28; // 文と文の間の無音（秒）
 const TAIL = 0.6; // シーン末尾に残す余白（秒）
 const END_HOLD = 2.5; // 最終シーンの静止フレーム（秒）
@@ -35,7 +42,39 @@ const split = (text) =>
     .filter(Boolean)
     .map((s) => s + "。");
 
+// 音読さん（Google系TTS）向け：表示用の文から読みにくい表記だけ置き換える
+const ONDOKU_READINGS = [
+  [/“|”/g, ""],
+  [/ファイル01/g, "ファイル、ゼロワン"],
+  [/ファイル02/g, "ファイル、ゼロツー"],
+  [/ファイル03/g, "ファイル、ゼロスリー"],
+  [/FA、/g, "エフエー、"],
+  [/電機・電子/g, "電機、電子"],
+];
+
+const synthOndoku = (text, rate, file) => {
+  const body = JSON.stringify({
+    text: ONDOKU_READINGS.reduce((t, [a, b]) => t.replace(a, b), text),
+    voice: ondokuVoice,
+    speed: rate,
+    pitch: 0,
+  });
+  const headers = ["-H", "Content-Type: application/json"];
+  if (process.env.ONDOKU_TOKEN) headers.push("-H", `token: ${process.env.ONDOKU_TOKEN}`);
+  const res = JSON.parse(execFileSync("curl", ["-sS", "-m", "120", "-X", "POST", ONDOKU_URL, ...headers, "-d", body]).toString());
+  if (!res.url) throw new Error(`音読さんAPIエラー: ${JSON.stringify(res)}`);
+  const mp3 = file.replace(/\.wav$/, ".mp3");
+  execFileSync("curl", ["-sS", "-m", "120", "-o", mp3, res.url]);
+  // 前後の無音を詰めて48kHzモノラルWAVに
+  execFileSync("ffmpeg", [
+    "-y", "-loglevel", "error", "-i", mp3,
+    "-af", "silenceremove=start_periods=1:start_threshold=-50dB,areverse,silenceremove=start_periods=1:start_threshold=-50dB,areverse",
+    "-ar", "48000", "-ac", "1", file,
+  ]);
+};
+
 const synth = (text, rate, file) => {
+  if (engine === "ondoku") return synthOndoku(text, rate, file);
   const txt = file.replace(/\.wav$/, ".txt");
   writeFileSync(txt, text);
   execFileSync("open_jtalk", ["-x", dict, "-m", voice, "-r", String(rate), "-a", "0.55", "-jf", "1.1", "-ow", file, txt]);
@@ -60,7 +99,9 @@ for (const scene of timeline.scenes) {
 
   if (!manifestOnly) {
     for (;;) {
-      parts = spoken.map((s, i) => {
+      // 音読さんは表示用の文（自然な日本語）を、Open JTalk は読み上げ用テキストを使う
+      const source = engine === "ondoku" ? display : spoken;
+      parts = source.map((s, i) => {
         const f = join(tmpDir, `sc${id}_${i}.wav`);
         synth(s, rate, f);
         return { file: f, dur: duration(f) };

@@ -47,6 +47,7 @@ npm run stills        # 代表フレームを書き出し
 npm run render        # 最終MP4を output_final/ に書き出し
 ```
 
+- **音読さんでナレーションを作り直す**：環境変数 `ONDOKU_TOKEN` にAPIトークンを設定 → `npm run narration:ondoku`（声は `ONDOKU_VOICE`、既定 `ja-JP-Wavenet-C`）→ `npm run docs` → `npm run render`
 - **ナレーションをプロのナレーター音声等に差し替える**：`public/assets/audio/scXX.wav` を置き換え → `node scripts/generate-narration.mjs --manifest-only` → `npm run docs`（字幕タイミングは文字数比で再計算）
 - **BGMを差し替える**：`public/assets/bgm/bgm.wav` を置き換え（音量は Root.tsx の `bgmVolume`）
 - **ロゴ・正式配色**：`src/theme.ts` と SC01 / SC16

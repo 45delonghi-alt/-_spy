@@ -30,6 +30,7 @@
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc",
     "narration": "node scripts/generate-narration.mjs",
+    "narration:ondoku": "node scripts/generate-narration.mjs --engine ondoku",
     "sfx": "bash scripts/generate-sfx.sh",
     "docs": "node scripts/export-docs.mjs",
     "stills": "node scripts/render-stills.mjs ../../docs/frames",
